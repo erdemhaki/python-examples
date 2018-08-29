@@ -15,4 +15,6 @@ ssh.connect(ipaddr,
 stdin, stdout, sterr = ssh.exec_command('show system users ')
 output = stdout.readlines()
 type(output)
-print '\n'.join(output)
+print ''.join(output)
+
+
