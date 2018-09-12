@@ -1,0 +1,46 @@
+
+import json
+import getpass
+from netmiko import ConnectHandler
+
+user = raw_input("Username: ")
+pswd = getpass.getpass("Password: ")
+
+command_list = {
+    "juniper": {
+        "command": "show configuration system host-name | match \"host-name\"",
+    },
+    "alcatel_sros": {
+        "command": "show system information | match \"System Name\"",
+    }
+}
+
+template = {
+    'username': user,
+    'password': pswd,
+    'port': 22
+}
+
+
+def merge_dicts(dictionary, merged):
+    for key, value in dictionary.items():
+        merged[key] = value
+    return merged
+
+
+def push_command():
+    with open('device_list.json') as json_data:
+        datastore = json.load(json_data)
+        for device in datastore['device_list']:
+            device_connection = merge_dicts(device, template)
+            net_connect = ConnectHandler(**device_connection)
+            output = net_connect.send_command(
+                command_list[device_connection["device_type"]]["command"]
+                )
+            if device_connection["device_type"] == "juniper":
+                print output.split()[1]
+            else:
+                print output.split()[3]
+
+
+print push_command()
