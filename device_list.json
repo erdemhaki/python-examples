@@ -1,0 +1,19 @@
+{"device_list":
+  [
+    {"ip": "10.10.10.1",
+     "device_type": "juniper"
+    },
+    {"ip": "10.10.10.2",
+     "device_type": "alcatel_sros"
+    },
+    {"ip": "10.10.10.3",
+     "device_type": "juniper"
+    },
+    {"ip": "10.10.10.4",
+     "device_type": "alcatel_sros"
+    },
+    {"ip": "10.10.10.5",
+     "device_type": "alcatel_sros"
+    }
+  ]
+}
